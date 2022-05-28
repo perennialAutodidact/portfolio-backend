@@ -1,0 +1,61 @@
+{% extends 'base.html' %} {% block content %}
+
+<h1>Home Videos</h1>
+
+<div class="row">
+  <div class="col-12 col-lg-4">
+    <form action="{% url 'pages_app:home_videos' %}" method="POST" id="file-upload-form" enctype="multipart/form-data">
+      <div class="input-group">
+          <input type="file" name="file" id="uploaded-file" class="form-control" />
+          {%csrf_token%}
+          <button type="submit" id="submit-button" class="btn btn-success">
+              Upload
+            </button>
+        </div>
+    </form>
+    <div class="mt-2" id="upload-progress">
+        <div class="progress-bar bg-info"></div>
+    </div>
+  </div>
+</div>
+<!-- 
+<script>
+  const form = document.querySelector("#file-upload-form");
+  const progressBarContainer = document.querySelector('#upload-progress')
+  const CSRFToken = document.getElementsByName('csrfmiddlewaretoken')[0]
+  let progressBar = null;
+    const axiosConfig = {
+        headers: {
+            'X-CSRFToken': CSRFToken.value,
+            'Content-Type': 'multipart/form-data'
+        },
+        xsrfHeaderName: "CSRFToken",
+        onUploadProgress: progressEvent => {
+            let progress =  Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            progressBar.style.width = `${progress}%`
+            progressBar.innerText = `${progress}%`
+        }
+    }
+
+  form.onsubmit = (e) => {
+    e.preventDefault();
+
+    progressBarContainer.classList.add('progress')
+    progressBar = progressBarContainer.querySelector('.progress-bar')
+
+    let formData = new FormData()
+    let imageFileInput = document.querySelector('#uploaded-file')
+    let file = imageFileInput.files[0]
+
+    const url = 'http://localhost:8000/home-videos/'
+    axios.post(url, {file}, axiosConfig)
+    .then(res=>{
+        imageFileInput.files = null
+        imageFileInput.value = ''
+
+    })
+
+  };
+</script> -->
+
+{% endblock content %}
